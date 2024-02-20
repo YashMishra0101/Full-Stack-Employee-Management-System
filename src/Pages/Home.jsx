@@ -83,7 +83,7 @@ const HomePage = () => {
   };
 
   const handleEmployeeLogout = () => {
-    navigate("/employeelogin");
+    navigate("/employeelogout");
   };
 
   const handleLogoutClick = () => {

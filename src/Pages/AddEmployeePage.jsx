@@ -1,3 +1,72 @@
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { addEmployee } from "../redux/slices/employeeSlice";
+// import { collection, addDoc } from "firebase/firestore";
+// import fireDB from "../firebase/FirebaseConfig";
+// import toast from "react-hot-toast";
+
+// const AddEmployeePage = () => {
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const [employeeDetails, setEmployeeDetails] = useState({
+//     employeeName: "",
+//     bankName: "",
+//     gender: "",
+//     bankBranch: "",
+//     contactNumber: "",
+//     ifccode: "",
+//     employeePost: "",
+//     accountNumber: "",
+//     aadhaarNumber: "",
+//     panNumber: "",
+//   });
+//   const [isSubmitting, setIsSubmitting] = useState(false);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setEmployeeDetails({
+//       ...employeeDetails,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setIsSubmitting(true);
+
+//     try {
+//       const docRef = await addDoc(
+//         collection(fireDB, "employees"),
+//         employeeDetails
+//       );
+//       dispatch(addEmployee({ ...employeeDetails, id: docRef.id }));
+//       navigate("/employeedetails");
+//       toast.success("Employee Data Added");
+//       setEmployeeDetails({
+//         employeeName: "",
+//         bankName: "",
+//         gender: "",
+//         bankBranch: "",
+//         contactNumber: "",
+//         ifccode: "",
+//         employeePost: "",
+//         accountNumber: "",
+//         aadhaarNumber: "",
+//         panNumber: "",
+//         emailid: "",
+//         address: "",
+//       });
+//     } catch (error) {
+//       console.error("Error adding employee: ", error);
+//       toast.error("Failed to add employee. Please try again.");
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
+
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,11 +85,13 @@ const AddEmployeePage = () => {
     gender: "",
     bankBranch: "",
     contactNumber: "",
-    ifcCode: "",
+    ifccode: "",
     employeePost: "",
     accountNumber: "",
     aadhaarNumber: "",
     panNumber: "",
+    emailid: "",
+    address: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,15 +103,22 @@ const AddEmployeePage = () => {
     });
   };
 
+  const generateUniqueEmployeeId = (email) => {
+    const atIndex = email.indexOf("@");
+    const uniqueId = email.slice(0, atIndex);
+    return uniqueId;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const docRef = await addDoc(
-        collection(fireDB, "employees"),
-        employeeDetails
-      );
+      const uniqueId = generateUniqueEmployeeId(employeeDetails.emailid);
+      const docRef = await addDoc(collection(fireDB, "employees"), {
+        ...employeeDetails,
+        employeeUniqueid: uniqueId,
+      });
       dispatch(addEmployee({ ...employeeDetails, id: docRef.id }));
       navigate("/employeedetails");
       toast.success("Employee Data Added");
@@ -50,7 +128,7 @@ const AddEmployeePage = () => {
         gender: "",
         bankBranch: "",
         contactNumber: "",
-        ifcCode: "",
+        ifccode: "",
         employeePost: "",
         accountNumber: "",
         aadhaarNumber: "",
@@ -66,11 +144,12 @@ const AddEmployeePage = () => {
     }
   };
 
+
   return (
     <div className="bg-gray-900 text-white">
       <div className="container mx-auto py-3 px-4">
         <h1 className="text-3xl font-bold text-center mb-5 select-none cursor-pointer">
-          Employee Details
+          Add Employee Details
         </h1>
         <div className="max-w-6xl mx-auto bg-gray-800 p-6 rounded-lg mt-10 min-h-[28rem]">
           <form onSubmit={handleSubmit}>
@@ -131,7 +210,7 @@ const AddEmployeePage = () => {
               </div>
               <div>
                 <label
-                  htmlFor="bankbranch"
+                  htmlFor="bankBranch"
                   className="block text-sm font-medium mb-2"
                 >
                   Bank Branch
