@@ -8,6 +8,8 @@ import AddEmployeePage from "./Pages/AddEmployeePage.jsx";
 import EmployeesDetailsPage from "./Pages/EmployeesDetailsPage.jsx";
 import HomePage from "./Pages/Home.jsx";
 import EditEmployeePage from "./Pages/EditEmployeePage.jsx";
+import EmployeeLogin from "./Pages/EmployeeLogin.jsx";
+import EmployeeLogout from "./Pages/EmployeeLogout.jsx";
 import { ProtectedRoute } from "./protectRoute/ProtectedRoute.jsx";
 import { store } from "./redux/store.jsx";
 import { Provider } from "react-redux";
@@ -54,6 +56,22 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <EditEmployeePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="employeeLogin"
+        element={
+          <ProtectedRoute>
+            <EmployeeLogin />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="employeeLogout"
+        element={
+          <ProtectedRoute>
+            <EmployeeLogout />
           </ProtectedRoute>
         }
       />

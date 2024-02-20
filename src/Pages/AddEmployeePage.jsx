@@ -55,6 +55,8 @@ const AddEmployeePage = () => {
         accountNumber: "",
         aadhaarNumber: "",
         panNumber: "",
+        emailid: "",
+        address: "",
       });
     } catch (error) {
       console.error("Error adding employee: ", error);
@@ -70,9 +72,9 @@ const AddEmployeePage = () => {
         <h1 className="text-3xl font-bold text-center mb-5 select-none cursor-pointer">
           Employee Details
         </h1>
-        <div className="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg">
+        <div className="max-w-6xl mx-auto bg-gray-800 p-6 rounded-lg mt-10 min-h-[28rem]">
           <form onSubmit={handleSubmit}>
-            <div className="mb-4 grid md:grid-cols-2 gap-4 justify-items-center ">
+            <div className="mb-4 grid md:grid-cols-3 gap-4 justify-items-center">
               <div>
                 <label
                   htmlFor="employeeName"
@@ -109,20 +111,18 @@ const AddEmployeePage = () => {
                   required
                 />
               </div>
-            </div>
-            <div className="mb-4 grid md:grid-cols-2 gap-4 justify-items-center">
               <div>
                 <label
-                  htmlFor="Gender"
+                  htmlFor="gender"
                   className="block text-sm font-medium mb-2"
                 >
                   Gender
                 </label>
                 <input
                   type="text"
-                  id="Gender"
-                  name="Gender"
-                  value={employeeDetails.Gender}
+                  id="gender"
+                  name="gender"
+                  value={employeeDetails.gender}
                   onChange={handleChange}
                   className="w-full bg-gray-700 rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-auto"
                   placeholder="Enter Gender"
@@ -138,9 +138,9 @@ const AddEmployeePage = () => {
                 </label>
                 <input
                   type="text"
-                  id="bankbranch"
-                  name="bankbranch"
-                  value={employeeDetails.bankbranch}
+                  id="bankBranch"
+                  name="bankBranch"
+                  value={employeeDetails.bankBranch}
                   onChange={handleChange}
                   className="w-full bg-gray-700 rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-auto"
                   placeholder="Enter Bank Branch"
@@ -183,8 +183,6 @@ const AddEmployeePage = () => {
                   required
                 />
               </div>
-            </div>
-            <div className="mb-4 grid md:grid-cols-2 gap-4 justify-items-center">
               <div>
                 <label
                   htmlFor="employeePost"
@@ -203,7 +201,6 @@ const AddEmployeePage = () => {
                   required
                 />
               </div>
-
               <div>
                 <label
                   htmlFor="accountNumber"
@@ -258,11 +255,47 @@ const AddEmployeePage = () => {
                   required
                 />
               </div>
+              <div>
+                <label
+                  htmlFor="emailid"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  id="emailid"
+                  name="emailid"
+                  value={employeeDetails.emailid}
+                  onChange={handleChange}
+                  className="w-full bg-gray-700 rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-auto"
+                  placeholder="Enter Email id"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={employeeDetails.address}
+                  onChange={handleChange}
+                  className="w-full bg-gray-700 rounded-lg px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-auto"
+                  placeholder="Enter address"
+                  required
+                />
+              </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               disabled={isSubmitting} // Disable button when submitting
             >
               {isSubmitting ? "Submitting..." : "Submit"}

@@ -24,7 +24,7 @@ export const fetchEmployees = createAsyncThunk(
 export const addEmployee = createAsyncThunk(
   "employees/addEmployee",
   async (employeeDetails) => {
-    const docRef = await addDoc(
+    const docRef = await updateDoc(
       collection(fireDB, "employees"),
       employeeDetails
     );
