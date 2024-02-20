@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from '../assets/logo.png'
 
-const LogoutPage = () => {
+const EmployeeLogout = () => {
   const navigate = useNavigate();
   const [employeeId, setEmployeeId] = useState("");
 
@@ -55,4 +55,4 @@ const LogoutPage = () => {
   );
 };
 
-export default LogoutPage;
+export default EmployeeLogout;

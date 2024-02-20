@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import fireDB from "../firebase/FirebaseConfig";
 
-const LoginPage = () => {
+const EmployeeLogin = () => {
   const navigate = useNavigate();
   const [employeeId, setEmployeeId] = useState("");
   const [employeeName, setEmployeeName] = useState("");
@@ -88,4 +88,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default EmployeeLogin;
