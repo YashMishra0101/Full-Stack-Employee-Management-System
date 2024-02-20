@@ -25,15 +25,8 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index element={<Login />} />
-      <Route
-        path="homepage"
-        element={
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
-        }
-      />
+      <Route index element={<HomePage />} />
+      <Route path="login" element={<Login />} />
 
       <Route
         path="employeeinfo"
@@ -59,22 +52,8 @@ const router = createBrowserRouter(
           </ProtectedRoute>
         }
       />
-      <Route
-        path="employeeLogin"
-        element={
-          <ProtectedRoute>
-            <EmployeeLogin />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="employeeLogout"
-        element={
-          <ProtectedRoute>
-            <EmployeeLogout />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="employeeLogin" element={<EmployeeLogin />} />
+      <Route path="employeeLogout" element={<EmployeeLogout />} />
     </Route>
   )
 );

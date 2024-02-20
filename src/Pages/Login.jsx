@@ -21,8 +21,8 @@ const Login = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       const users = localStorage.setItem("user", JSON.stringify(user));
-      toast.success("Signin Successful");
-      navigation("homepage");
+      toast.success("Login Successful");
+      navigation("/");
       setEmail("");
       setPassword("");
       console.log("In Login ,Email:", email);
@@ -36,7 +36,7 @@ const Login = () => {
   return (
     <div>
       <div className="dark:bg-gray-900 min-h-screen">
-        <div className="flex flex-col items-center justify-center px-6 py-7 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
           <h1 className="text-center text-3xl font-bold cursor-pointer select-none">
             <img src={logo} width="200" alt="" className="-mb-10" />
           </h1>
@@ -112,7 +112,7 @@ const Login = () => {
                   type="submit"
                   className="w-full text-white bg-blue-600 hover:bg-blue-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 mb-1"
                 >
-                  Sign in
+                  Login in
                 </button>
               </form>
             </div>

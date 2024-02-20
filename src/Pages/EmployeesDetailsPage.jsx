@@ -95,7 +95,7 @@ const EmployeesDetailsPage = () => {
         <div className="flex justify-end">
           <button
             onClick={handleLogout}
-            className="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2"
+            className="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 ml-5 md:ml-0"
           >
             Logout
           </button>
