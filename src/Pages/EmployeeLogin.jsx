@@ -1,48 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import fireDB from "../firebase/FirebaseConfig";
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import logo from "../assets/logo.png";
 
 const EmployeeLogin = () => {
   const navigate = useNavigate();
-  const [employeeId, setEmployeeId] = useState("");
   const [employeeName, setEmployeeName] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [employees, setEmployees] = useState([]);
 
-  const handleLogin = async () => {
-    const trimmedEmployeeId = employeeId.trim();
-    const trimmedEmployeeName = employeeName.trim();
-  
-    if (trimmedEmployeeId === "" || trimmedEmployeeName === "") {
-      toast.error("Please enter both Employee ID and name");
-      return;
-    }
-  
+  const fetchEmployees = async () => {
     try {
-      const q = query(
-        collection(fireDB, "employees"),
-        where("employeeUniqueid", "==", trimmedEmployeeId),
-        where("employeeName", "==", trimmedEmployeeName)
-      );
-      const querySnapshot = await getDocs(q);
-      if (querySnapshot.empty) {
-        toast.error("Invalid Employee ID or name");
-        return;
-      }
-      // If employee ID and name match, redirect to employee details page
-      navigate("/employeesdetails");
+      const querySnapshot = await getDocs(collection(fireDB, "employees"));
+      const fetchedEmployees = [];
+      querySnapshot.forEach((doc) => {
+        fetchedEmployees.push({ id: doc?.id, ...doc?.data() });
+      });
+      setEmployees(fetchedEmployees);
     } catch (error) {
-      console.error("Error logging in: ", error);
-      toast.error("Failed to login. Please try again.");
+      console.error("Error fetching employees: ", error);
+      toast.error("Error fetching employees");
     }
   };
-  
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const handleLogin = async () => {
+    if (employeeName && employeeId) {
+      const foundEmployee = employees.find(
+        (item) =>
+          item?.employeeName === employeeName &&
+          item?.employeeUniqueid === employeeId
+      );
+      if (foundEmployee) {
+        toast.success("Login Successful");
+        try {
+          await addDoc(collection(fireDB, "logindata"), {
+            action: "login",
+            employeeName: foundEmployee.employeeName,
+            employeeId: foundEmployee.employeeUniqueid,
+            timestamp: new Date().toISOString(),
+          });
+          // Redirect to logout page or any other page if needed
+          navigate("/loginlogoutdata"); // Redirect to logout page
+        } catch (error) {
+          console.error("Error adding login data: ", error);
+          toast.error("Error adding login data");
+        }
+      } else {
+        toast.error("Invalid Name or Id");
+      }
+    } else {
+      toast.error("Please enter both name and ID");
+    }
+  };
 
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center px-6 mx-auto md:h-screen lg:py-0">
-      {/* Your UI code */}
+      <h1 className="text-center text-3xl font-bold cursor-pointer select-none -mt-20">
+        <img src={logo} width="200" alt="" className="-mb-10" />
+      </h1>
+      <div className="text-sm text-gray-500 mb-4 -mt-6 hover:text-gray-300 cursor-pointer select-none">
+        TECHNOLOGY AND SERVICES PRIVATE LIMITED
+      </div>
       <div className="md:w-96 bg-gray-800 p-8 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-5">Employee Login Page 😀</h1>
+        <h1 className="text-2xl font-bold text-center mb-5">
+          Employee Login Page 😀
+        </h1>
         <div className="mb-4">
           <label
             htmlFor="employename"
@@ -79,7 +107,7 @@ const EmployeeLogin = () => {
         </div>
         <button
           onClick={handleLogin}
-          className="w-full -mb-16 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Login
         </button>
@@ -89,3 +117,15 @@ const EmployeeLogin = () => {
 };
 
 export default EmployeeLogin;
+
+
+
+
+
+
+
+
+
+
+
+
