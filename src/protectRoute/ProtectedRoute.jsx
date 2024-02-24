@@ -1,5 +1,3 @@
-// In ProtectedRoute.jsx
-
 import { Navigate } from "react-router";
 
 export const ProtectedRoute = ({ children }) => {

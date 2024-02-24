@@ -11,51 +11,53 @@ const EmployeeLogin = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [employees, setEmployees] = useState([]);
 
-  const fetchEmployees = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(fireDB, "employees"));
-      const fetchedEmployees = [];
-      querySnapshot.forEach((doc) => {
-        fetchedEmployees.push({ id: doc?.id, ...doc?.data() });
-      });
-      setEmployees(fetchedEmployees);
-    } catch (error) {
-      console.error("Error fetching employees: ", error);
-      toast.error("Error fetching employees");
-    }
-  };
-
   useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(fireDB, "employees"));
+        const fetchedEmployees = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setEmployees(fetchedEmployees);
+      } catch (error) {
+        console.error("Error fetching employees: ", error);
+        toast.error("Error fetching employees");
+      }
+    };
+
     fetchEmployees();
   }, []);
 
   const handleLogin = async () => {
-    if (employeeName && employeeId) {
+    try {
+      if (!employeeName || !employeeId) {
+        throw new Error("Please enter both name and ID");
+      }
+
       const foundEmployee = employees.find(
         (item) =>
-          item?.employeeName === employeeName &&
-          item?.employeeUniqueid === employeeId
+          item.employeeName === employeeName &&
+          item.employeeUniqueid === employeeId
       );
-      if (foundEmployee) {
-        toast.success("Login Successful");
-        try {
-          await addDoc(collection(fireDB, "logindata"), {
-            action: "login",
-            employeeName: foundEmployee.employeeName,
-            employeeId: foundEmployee.employeeUniqueid,
-            timestamp: new Date().toISOString(),
-          });
-          // Redirect to logout page or any other page if needed
-          navigate("/loginlogoutdata"); // Redirect to logout page
-        } catch (error) {
-          console.error("Error adding login data: ", error);
-          toast.error("Error adding login data");
-        }
-      } else {
-        toast.error("Invalid Name or Id");
+
+      if (!foundEmployee) {
+        throw new Error("Invalid Name or Id");
       }
-    } else {
-      toast.error("Please enter both name and ID");
+
+      toast.success("Login Successful");
+
+      await addDoc(collection(fireDB, "logindata"), {
+        action: "login",
+        employeeName: foundEmployee.employeeName,
+        employeeId: foundEmployee.employeeUniqueid,
+        timestamp: new Date().toISOString(),
+      });
+
+      navigate("/loginlogoutdata");
+    } catch (error) {
+      console.error("Error handling login: ", error);
+      toast.error(error.message);
     }
   };
 
@@ -117,15 +119,3 @@ const EmployeeLogin = () => {
 };
 
 export default EmployeeLogin;
-
-
-
-
-
-
-
-
-
-
-
-

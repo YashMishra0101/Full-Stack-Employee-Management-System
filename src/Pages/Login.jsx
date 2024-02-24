@@ -46,7 +46,7 @@ const Login = () => {
           <div className="w-full rounded-lg shadow dborder sm:max-w-md xl:p-0 bg-gray-800 border-gray-700 mb-14">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="md:text-center font-bold text-2xl text-white">
-               Admin Login 
+                Admin Login
               </h1>
               <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                 <div>

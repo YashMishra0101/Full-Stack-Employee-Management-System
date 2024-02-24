@@ -53,6 +53,14 @@ const HomePage = () => {
     navigate("/login");
   };
 
+  const handleSeeLoginLogoutData = () => {
+    navigate("/loginlogoutdata");
+  };
+
+  const handleEmployeeDataPage = () => {
+    navigate("/employeeDataPage");
+  };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col justify-center items-center select-none relative">
       {!isAdminLoggedIn ? (
@@ -71,7 +79,7 @@ const HomePage = () => {
         </button>
       )}
 
-      <h1 className="text-center text-3xl font-bold cursor-pointer select-none mt-12 md:mt-0">
+      <h1 className="text-center text-3xl font-bold cursor-pointer select-none mt-12">
         <img src={logo} width="200" alt="" className="-mb-10 -mt-28" />
       </h1>
       <div className="text-sm text-gray-500 mb-4 -mt-6 hover:text-gray-300 cursor-pointer select-none">
@@ -80,7 +88,7 @@ const HomePage = () => {
       <h1 className="text-3xl sm:text-5xl font-bold sm:mb-20 text-center md:mb-12 mb-5">
         Employee Management System
       </h1>
-      <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
+      <div className="flex flex-wrap justify-center gap-8 sm:gap-16">
         {/* Rectangle box for "See All Employee Info" */}
         <div
           className="bg-gray-800 sm:w-64 w-72 h-64 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-gray-700 transition duration-300"
@@ -125,8 +133,32 @@ const HomePage = () => {
           <h2 className="text-lg sm:text-xl font-semibold mb-4 ">
             Employee Logout
           </h2>
-          <button className="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
+          <button className="text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
             Logout
+          </button>
+        </div>
+        {/* Rectangle box for "All Employee Login and Logout Data" */}
+        <div
+          className="bg-gray-800 sm:w-64 w-72 h-64 mb-6 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-gray-700 transition duration-300"
+          onClick={handleSeeLoginLogoutData}
+        >
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center px-2">
+            All Employee Login and Logout Data
+          </h2>
+          <button className="text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
+            View
+          </button>
+        </div>
+        {/* Rectangle box for "See Login and Logout Data In Detail" */}
+        <div
+          className="bg-gray-800 sm:w-64 w-72 h-64 mb-6 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-gray-700 transition duration-300"
+          onClick={handleEmployeeDataPage}
+        >
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center px-2">
+            See Login and Logout Data In Detail
+          </h2>
+          <button className="text-white bg-orange-500 hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
+            View
           </button>
         </div>
       </div>

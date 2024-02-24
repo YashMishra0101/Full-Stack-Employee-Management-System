@@ -1,5 +1,4 @@
 import React from "react";
-// import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import ReactDOM from "react-dom/client";
@@ -11,6 +10,7 @@ import EditEmployeePage from "./Pages/EditEmployeePage.jsx";
 import EmployeeLogin from "./Pages/EmployeeLogin.jsx";
 import EmployeeLogout from "./Pages/EmployeeLogout.jsx";
 import LoginLogoutData from "./Pages/LoginLogoutData.jsx";
+import EmployeeDataPage from "./Pages/EmployeeDataPage .jsx";
 import { ProtectedRoute } from "./protectRoute/ProtectedRoute.jsx";
 import { store } from "./redux/store.jsx";
 import { Provider } from "react-redux";
@@ -56,6 +56,7 @@ const router = createBrowserRouter(
       <Route path="employeeLogin" element={<EmployeeLogin />} />
       <Route path="employeeLogout" element={<EmployeeLogout />} />
       <Route path="loginlogoutdata" element={<LoginLogoutData />} />
+      <Route path="employeeDataPage" element={<EmployeeDataPage />} />
     </Route>
   )
 );

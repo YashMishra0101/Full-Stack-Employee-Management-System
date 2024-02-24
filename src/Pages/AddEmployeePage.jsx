@@ -1,72 +1,3 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { addEmployee } from "../redux/slices/employeeSlice";
-// import { collection, addDoc } from "firebase/firestore";
-// import fireDB from "../firebase/FirebaseConfig";
-// import toast from "react-hot-toast";
-
-// const AddEmployeePage = () => {
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-
-//   const [employeeDetails, setEmployeeDetails] = useState({
-//     employeeName: "",
-//     bankName: "",
-//     gender: "",
-//     bankBranch: "",
-//     contactNumber: "",
-//     ifccode: "",
-//     employeePost: "",
-//     accountNumber: "",
-//     aadhaarNumber: "",
-//     panNumber: "",
-//   });
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setEmployeeDetails({
-//       ...employeeDetails,
-//       [name]: value,
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-
-//     try {
-//       const docRef = await addDoc(
-//         collection(fireDB, "employees"),
-//         employeeDetails
-//       );
-//       dispatch(addEmployee({ ...employeeDetails, id: docRef.id }));
-//       navigate("/employeedetails");
-//       toast.success("Employee Data Added");
-//       setEmployeeDetails({
-//         employeeName: "",
-//         bankName: "",
-//         gender: "",
-//         bankBranch: "",
-//         contactNumber: "",
-//         ifccode: "",
-//         employeePost: "",
-//         accountNumber: "",
-//         aadhaarNumber: "",
-//         panNumber: "",
-//         emailid: "",
-//         address: "",
-//       });
-//     } catch (error) {
-//       console.error("Error adding employee: ", error);
-//       toast.error("Failed to add employee. Please try again.");
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -143,7 +74,6 @@ const AddEmployeePage = () => {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <div className="bg-gray-900 text-white">

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 import fireDB from "../firebase/FirebaseConfig";
 import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker";
@@ -18,7 +26,7 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
         const logoutSnapshot = await getDocs(collection(fireDB, "logoutdata"));
         const loginData = loginSnapshot.docs.map((doc) => doc.data());
         const logoutData = logoutSnapshot.docs.map((doc) => doc.data());
-  
+
         // Combine login and logout data
         const combinedData = [];
         loginData.forEach((login) => {
@@ -33,10 +41,11 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
             logoutTime: logout ? logout.timestamp : null,
           });
         });
-  
+
         // Set combined data state
         setEmployeeData(combinedData);
-  
+        console.log(employeeData);
+
         // Check if logout data is available
         const hasLogoutData = combinedData.some(
           (data) => data.logoutTime !== null
@@ -52,7 +61,7 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
           }
           return; // Stop further execution if logout data is not available
         }
-  
+
         // Store employee login and logout data in 'dayhalfdaydata' collection in Firebase
         const todaysDate = selectedDate.toDateString();
         const existingDataQuery = query(
@@ -65,12 +74,12 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
         existingDataSnapshot.forEach((doc) => {
           existingUserIds.add(doc.data().employeeId);
         });
-  
+
         // Filter out data for users who have already been added
         const newData = combinedData.filter(
           (data) => !existingUserIds.has(data.employeeId)
         );
-  
+
         // Save only the new data
         newData.forEach(async (data) => {
           if (data.logoutTime) {
@@ -85,7 +94,10 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
               logoutTime: data.logoutTime,
               workDuration: workDuration,
             };
-            await addDoc(collection(fireDB, "dayhalfdaydata"), dayHalfDayData);
+            await setDoc(
+              doc(fireDB, "dayhalfdaydata", dayHalfDayData?.employeeId),
+              dayHalfDayData
+            );
             existingUserIds.add(data.employeeId); // Add the user ID to the set to prevent duplicates
           }
         });
@@ -93,10 +105,9 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
         console.error("Error fetching and storing data: ", error);
       }
     };
-  
+
     fetchEmployeeData();
   }, [selectedDate]);
-  
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -127,23 +138,31 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
 
   const determineWorkDuration = (loginTime, logoutTime) => {
     const loginHour = new Date(loginTime).getHours();
+    const loginMinute = new Date(loginTime).getMinutes();
     const logoutHour = new Date(logoutTime).getHours();
     const logoutMinute = new Date(logoutTime).getMinutes();
 
-    if (
-      (loginHour < 10 || (loginHour === 10 && logoutMinute <= 30)) &&
-      logoutHour >= 17 &&
-      logoutMinute >= 50
-    ) {
+    // Check if login and logout times are available
+    if (loginHour === undefined || logoutHour === undefined) {
+      return "Leave";
+    }
+
+    // Convert login and logout times to minutes for easier comparison
+    const loginMinutes = loginHour * 60 + loginMinute;
+    const logoutMinutes = logoutHour * 60 + logoutMinute;
+
+    if (loginMinutes <= 10 * 60 + 30 && logoutMinutes >= 18 * 60) {
       return "Full Day";
-    } else {
+    } else if (loginMinutes > 10 * 60 + 30 || logoutMinutes < 18 * 60) {
       return "Half Day";
+    } else {
+      return "Leave";
     }
   };
 
-  const filteredData = employeeData.filter(
+  const filteredData = employeeData?.filter(
     (data) =>
-      data.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      data?.employeeName?.toLowerCase().includes(searchTerm.toLowerCase()) &&
       new Date(data.timestamp).toDateString() === selectedDate.toDateString()
   );
 
@@ -213,7 +232,7 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
                 Logout Time
               </th>
               <th className="px-4 py-2 text-sm font-medium text-gray-200 bg-gray-800">
-                Work Duration
+                <span>Work Duration</span>
               </th>
             </tr>
           </thead>
@@ -235,7 +254,23 @@ const LoginLogoutData = ({ loggedInEmployee }) => {
                 <td className="px-4 py-2 text-sm font-medium text-gray-100">
                   {data.logoutTime ? formatDateTime(data.logoutTime) : "N/A"}
                 </td>
-                <td className="px-4 py-2 text-sm font-medium text-gray-100">
+                <td
+                  className={`px-4 py-2 text-sm font-medium ${
+                    data.logoutTime
+                      ? determineWorkDuration(
+                          data.timestamp,
+                          data.logoutTime
+                        ) === "Full Day"
+                        ? "text-green-500"
+                        : determineWorkDuration(
+                            data.timestamp,
+                            data.logoutTime
+                          ) === "Half Day"
+                        ? "text-red-500"
+                        : "text-blue-500"
+                      : "text-blue-500"
+                  }`}
+                >
                   {data.logoutTime
                     ? determineWorkDuration(data.timestamp, data.logoutTime)
                     : "N/A"}
