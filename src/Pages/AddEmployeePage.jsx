@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addEmployee } from "../redux/slices/employeeSlice";
 import { collection, addDoc } from "firebase/firestore";
 import fireDB from "../firebase/FirebaseConfig";
-import toast from "react-hot-toast";
+import toast from "react-hot-toast"
 
 const AddEmployeePage = () => {
   const navigate = useNavigate();

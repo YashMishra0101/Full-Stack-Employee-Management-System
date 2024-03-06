@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/FirebaseConfig";
 import toast from "react-hot-toast";
 
-const Login = () => {
+const Adminlogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showpassword, setShowPassword] = useState(false);
@@ -32,6 +32,10 @@ const Login = () => {
       console.log(`Login failed: ${error.message}`);
     }
   };
+
+  const resetHandler=()=>{
+    navigation("/resetPassword")
+  }
 
   return (
     <div>
@@ -104,14 +108,15 @@ const Login = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="text-base font-medium text-blue-600 hover:underline ml-[3.5rem] lg:ml-[3.1rem] xl:ml-[3.1rem] text-center cursor-pointer pb-1">
+                  <div className="text-base font-medium text-blue-600 hover:underline ml-[3.5rem] lg:ml-[3.1rem] xl:ml-[3.1rem] text-center cursor-pointer pb-1"
+                  onClick={resetHandler}>
                     Forgot password
                   </div>
                 </div>
                 <button
                   type="submit"
                   className="w-full text-white bg-blue-600 hover:bg-blue-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 mb-1"
-                >
+                     >
                   Login
                 </button>
               </form>
@@ -123,4 +128,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Adminlogin;

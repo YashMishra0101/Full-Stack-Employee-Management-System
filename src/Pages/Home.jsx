@@ -50,7 +50,7 @@ const HomePage = () => {
   };
 
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/adminlogin");
   };
 
   const handleSeeLoginLogoutData = () => {
@@ -59,6 +59,12 @@ const HomePage = () => {
 
   const handleEmployeeDataPage = () => {
     navigate("/employeeDataPage");
+  };
+  const handelperformance = () => {
+    navigate("/addemployeeperformance");
+  };
+  const seeperformance = () => {
+    navigate("/performancenotes");
   };
 
   return (
@@ -95,7 +101,7 @@ const HomePage = () => {
           onClick={handleSeeAllEmployee}
         >
           <h2 className="text-lg sm:text-xl font-semibold mb-4">
-            See All Employees
+            See Employees Details
           </h2>
           <button className="text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
             View
@@ -158,6 +164,29 @@ const HomePage = () => {
             See Login and Logout Data In Detail
           </h2>
           <button className="text-white bg-orange-500 hover:bg-orange-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
+            View
+          </button>
+        </div>
+        <div
+          className="bg-gray-800 sm:w-64 w-72 h-64 mb-6 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-gray-700 transition duration-300"
+          onClick={handelperformance}
+        >
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center px-2">
+           Add Employee Performance
+          </h2>
+          <button className="text-white bg-sky-700 hover:bg-sky-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
+            View
+          </button>
+        </div>
+
+        <div
+          className="bg-gray-800 sm:w-64 w-72 h-64 mb-6 flex flex-col justify-center items-center rounded-lg cursor-pointer hover:bg-gray-700 transition duration-300"
+          onClick={seeperformance}
+        >
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center px-2">
+            See Employee Performance
+          </h2>
+          <button className="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-lg px-6 py-3 sm:px-8 sm:py-4">
             View
           </button>
         </div>

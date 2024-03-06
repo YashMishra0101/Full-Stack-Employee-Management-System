@@ -2,7 +2,7 @@ import React from "react";
 import App from "./App.jsx";
 import "./index.css";
 import ReactDOM from "react-dom/client";
-import Login from "./Pages/Login.jsx";
+import Adminlogin from "./Pages/Adminlogin.jsx";
 import AddEmployeePage from "./Pages/AddEmployeePage.jsx";
 import EmployeesDetailsPage from "./Pages/EmployeesDetailsPage.jsx";
 import HomePage from "./Pages/Home.jsx";
@@ -10,7 +10,10 @@ import EditEmployeePage from "./Pages/EditEmployeePage.jsx";
 import EmployeeLogin from "./Pages/EmployeeLogin.jsx";
 import EmployeeLogout from "./Pages/EmployeeLogout.jsx";
 import LoginLogoutData from "./Pages/LoginLogoutData.jsx";
-import EmployeeDataPage from "./Pages/EmployeeDataPage .jsx";
+import EmployeeDataPage from "./Pages/EmployeePage .jsx";
+import AddEmployeePerformance from "./Pages/AddEmployeePerformance.jsx";
+import Performancenotes from "./Pages/Performancenotes.jsx";
+import ResetPassword from "./Pages/ResetPassword.jsx";
 import { ProtectedRoute } from "./protectRoute/ProtectedRoute.jsx";
 import { store } from "./redux/store.jsx";
 import { Provider } from "react-redux";
@@ -27,7 +30,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<HomePage />} />
-      <Route path="login" element={<Login />} />
+      <Route path="adminlogin" element={<Adminlogin />} />
 
       <Route
         path="employeeinfo"
@@ -57,6 +60,16 @@ const router = createBrowserRouter(
       <Route path="employeeLogout" element={<EmployeeLogout />} />
       <Route path="loginlogoutdata" element={<LoginLogoutData />} />
       <Route path="employeeDataPage" element={<EmployeeDataPage />} />
+      <Route path="resetPassword" element={<ResetPassword/>} />
+      <Route
+        path="addemployeeperformance"
+        element={
+          <ProtectedRoute>
+            <AddEmployeePerformance />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="performancenotes" element={<Performancenotes />} />
     </Route>
   )
 );
