@@ -58,9 +58,23 @@ const router = createBrowserRouter(
       />
       <Route path="employeeLogin" element={<EmployeeLogin />} />
       <Route path="employeeLogout" element={<EmployeeLogout />} />
-      <Route path="loginlogoutdata" element={<LoginLogoutData />} />
-      <Route path="employeeDataPage" element={<EmployeeDataPage />} />
-      <Route path="resetPassword" element={<ResetPassword/>} />
+      <Route
+        path="loginlogoutdata"
+        element={
+          <ProtectedRoute>
+            <LoginLogoutData />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="employeeDataPage"
+        element={
+          <ProtectedRoute>
+            <EmployeeDataPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="resetPassword" element={<ResetPassword />} />
       <Route
         path="addemployeeperformance"
         element={
