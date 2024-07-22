@@ -1,14 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+const API_KEY = import.meta.env.VITE_Firebase_API_KEY;
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAtcuMN3LZS8DjkGcx1j-yCM9GZgbUDmbc",
-  authDomain: "skymentor-266a0.firebaseapp.com",
-  projectId: "skymentor-266a0",
-  storageBucket: "skymentor-266a0.appspot.com",
-  messagingSenderId: "657553068545",
-  appId: "1:657553068545:web:3f8f63f943d77c821a6600",
+  apiKey: API_KEY,
+  authDomain: "employee-management-syst-a6460.firebaseapp.com",
+  projectId: "employee-management-syst-a6460",
+  storageBucket: "employee-management-syst-a6460.appspot.com",
+  messagingSenderId: "143925916119",
+  appId: "1:143925916119:web:58e9a681ecd6444d8cdb92"
 };
 
 const app = initializeApp(firebaseConfig);
