@@ -5,16 +5,17 @@
 <img src="src/assets/Screenshot (415).png">
 <img src="src/assets/Screenshot (417).png">
 
-
-● Developed secure employee data management with HTML5, Tailwind CSS, React.js, and Firebase, 
-  facilitating admin data operations and employee attendance tracking.
-● Integrated Firebase authentication for user login/logout functionality, ensuring data security and   privacy.
-● Automated attendance calculation based on employee login/logout times, streamlining the process.
-● Designed user-friendly interface with HTML5, Tailwind CSS, and React.js for intuitive navigation
+● Developed secure employee data management with HTML5, Tailwind CSS, React.js, and Firebase, facilitating admin data operations and employee attendance tracking.  
+● Integrated Firebase authentication for user login/logout functionality, ensuring data security and privacy.  
+● Automated attendance calculation based on employee login/logout times, streamlining the process.  
+● Designed user-friendly interface with HTML5, Tailwind CSS, and React.js for intuitive navigation.  
+● **Only admin can add and delete employee data.**  
+● **Employees can log in and log out based on office time.**  
+● **Admin can add employee performance.**  
 
 ## 🌐 Project Demo 
 
-To see a live demo of the project, please visit : https://employee-management-system-cyan.vercel.app/
+To see a live demo of the project, please visit: https://employee-management-system-cyan.vercel.app/
 
 ## Technologies Used
 
@@ -22,13 +23,16 @@ To see a live demo of the project, please visit : https://employee-management-sy
 - Tailwind CSS
 - React
 - React Router
-- FireBase
+- Firebase
 
+## Admin Credentials
+
+- **Email:** yashadmin@gmail.com  
+- **Password:** 123@#!Dev  
 
 ## Contributing
 
 If you would like to contribute to this Employee Management System, please open an issue or submit a pull request. All contributions are welcome.
-
 
 ## Contact 
 
