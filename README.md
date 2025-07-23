@@ -38,5 +38,5 @@ If you would like to contribute to this Employee Management System, please open 
 
 If you have any questions or suggestions, please feel free to contact me on:
 
-- LinkedIn: https://www.linkedin.com/in/yash-mishra-356280223
-- Twitter: https://twitter.com/YashRKMishra1
+- LinkedIn: [https://www.linkedin.com/in/yash-mishra-356280223](https://www.linkedin.com/in/yash-mishra-356280223/)
+- Twitter:[ https://twitter.com/YashRKMishra1](https://x.com/YashRKMishra1)
